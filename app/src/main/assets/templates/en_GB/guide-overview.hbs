@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>GLASSROOM</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script type="application/javascript" src="js/main.js"></script>
+    <script type="application/javascript" src="js/jquery-3.1.0.min.js"></script>
+</head>
+
+<body>
+<div class="slide">
+    <div class="header">
+        <button class="help" onclick="GST.executeCommand('help');">&nbsp;</button>
+        <div class="title">{{{guide.title}}}</div>
+        <button class="close" onclick="GST.executeCommand('cancel');">&nbsp;</button>
+    </div>
+
+    <div class="body">
+        <p>{{guide.description}}</p>
+    </div>
+
+    <div class="navigation">
+        {{#each buttons}}
+            <button id="btn-{{this.key}}" onclick="GST.executeCommand('{{this.key}}');" tabindex="1">{{this.label}}</button>
+        {{/each}}
+    </div>
+
+    <div class="speech"> </div>
+</div>
+</body>
+</html>

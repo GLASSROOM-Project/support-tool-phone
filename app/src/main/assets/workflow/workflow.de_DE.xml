@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow beginWith="welcome" xmlns="gl+room:gst:workflow">
+    
+    <slide id="welcome" type="splash">
+        <properties>
+            <template>splash</template>
+            <body><![CDATA[<h1>GLASSROOM</h1><h2>Support Tool</h2>]]></body>
+            <background>backgrounds/background.png</background>
+            <!--forward delay="3" target="catalog" /-->
+            <performAction delay="1" action="init" />
+        </properties>
+        <commands />
+        <voiceCommands />
+        <buttons />
+    </slide>
+    
+    <slide id="tutorial-option" type="default">
+        <properties>
+            <template>default</template>
+            <body><![CDATA[Möchten Sie eine kurze Einleitung?]]></body>
+            <background>backgrounds/background.png</background>
+        </properties>
+        <commands>
+            <command key="yes" target="tutorial" />
+            <command key="no" target="search" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="yes" keywords="ja;tutorial" />
+            <voiceCommand command="no" keywords="nein;überspringen" />
+        </voiceCommands>
+        <buttons>
+            <button command="yes" label="Ja" />
+            <button command="no" label="Nein" />
+        </buttons>
+    </slide>
+        
+    <slide id="tutorial" type="splash">
+        <properties>
+            <template>splash</template>
+            <body><![CDATA[<p>Die Einführung steht in Kürze bereit ...</p>]]></body>
+            <background>backgrounds/background.png</background>
+            <forward delay="3" target="tutorial-option" />
+        </properties>
+        <commands />
+        <voiceCommands />
+        <buttons />
+    </slide>
+
+    <slide id="catalog" type="titled_select">
+        <properties>
+            <template>catalog</template>
+            <background>backgrounds/background.png</background>
+        </properties>
+        <commands>
+            <command key="help" action="help" />
+            <command key="cancel" target="goodbye" />
+            <command key="previous" action="previous" />
+            <command key="next" action="next" />
+            <command key="search" target="search" />
+            <command key="select" action="selectGuide" target="guide-overview" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="help" keywords="hilfe" />
+            <voiceCommand command="cancel" keywords="abbrechen;beenden" />
+            <voiceCommand command="previous" keywords="zurück;vorherige;vorheriges;vorheriger" />
+            <voiceCommand command="next" keywords="weiter;nächste;nächster;nächstes;vor" />
+            <voiceCommand command="search" keywords="suchen" />
+            <voiceCommand command="select" keywords="öffnen;auswählen" />
+        </voiceCommands>        
+        <buttons>
+            <button command="select" label="Öffnen" />
+            <button command="cancel" label="Beenden" />
+        </buttons>
+    </slide>
+
+    <slide id="search" type="default">
+        <properties>
+            <template>default</template>
+            <body><![CDATA[<p>Worin möchten Sie unterstützt werden?</p>]]></body>
+            <background>backgrounds/background-voice.png</background>
+        </properties>
+        <commands>
+            <command key="help" action="help" />
+            <command key="cancel" target="catalog"/>
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="help" keywords="hilfe" />
+            <voiceCommand command="cancel" keywords="abbrechen" />
+        </voiceCommands>
+        <buttons>
+        </buttons>
+    </slide>
+
+    <slide id="filtered-catalog" type="titled_select">
+        <properties>
+            <template>filtered-catalog</template>
+            <background>backgrounds/background.png</background>
+        </properties>
+        <commands>
+            <command key="help" action="help" />
+            <command key="cancel" target="catalog" action="resetGuide" />
+            <command key="previous" action="previous" />
+            <command key="next" action="next" />
+            <command key="select" action="selectGuide" target="guide-overview" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="help" keywords="hilfe" />
+            <voiceCommand command="cancel" keywords="abbrechen" />
+            <voiceCommand command="previous" keywords="zurück;vorherige;vorheriges;vorheriger" />
+            <voiceCommand command="next" keywords="weiter;nächste;nächster;nächstes;vor" />
+            <voiceCommand command="select" keywords="öffnen;auswählen" />
+        </voiceCommands>
+        <buttons>
+            <button command="select" label="Öffnen" />
+            <button command="cancel" label="Abbrechen" />
+        </buttons>
+    </slide>
+    
+    <slide id="guide-overview" type="default">
+        <properties>
+            <template>guide-overview</template>
+            <background>backgrounds/background.png</background>
+        </properties>
+        <commands>
+            <command key="help" action="help" />
+            <command key="cancel" action="previous" />
+            <command key="start" target="guide-step" action="openGuide" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="help" keywords="hilfe" />
+            <voiceCommand command="cancel" keywords="abbrechen;zurück" />
+            <voiceCommand command="start" keywords="beginnen;öffnen" />
+        </voiceCommands>
+        <buttons>
+            <button command="start" label="Beginnen" />
+            <button command="cancel" label="Zurück" />
+        </buttons>
+    </slide>
+    
+    <slide id="guide-step" type="progress_select">
+        <properties>
+            <template>guide-step</template>
+            <background>backgrounds/background.png</background>
+        </properties>
+        <commands>
+            <command key="help" action="help" />
+            <command key="cancel" target="guide-cancel" />
+            <command key="previous" action="previous" />
+            <command key="next" action="next" />
+            <command key="show" action="showMedia" />
+            <command key="warnings" target="step-warnings" />
+            <command key="hints" target="step-hints" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="help" keywords="hilfe" />
+            <voiceCommand command="cancel" keywords="abbrechen" />
+            <voiceCommand command="previous" keywords="zurück;vorherige;vorheriges;vorheriger" />
+            <voiceCommand command="next" keywords="weiter;nächste;nächster;nächstes;vor" />
+            <voiceCommand command="show" keywords="zeigen" />
+            <voiceCommand command="warnings" keywords="warnung;warnungen" />
+            <voiceCommand command="hints" keywords="hinweis;hinweise" />
+        </voiceCommands>
+        <buttons>
+            <button command="show" label="Zeigen" />
+            <button command="warnings" label="Warnungen" />
+            <button command="hints" label="Hinweise" />
+        </buttons>
+    </slide>
+    
+    <slide id="guide-cancel" type="default">
+        <properties>
+            <template>default</template>
+            <body><![CDATA[<p>Möchten Sie die Anleitung schließen?</p>]]></body>
+            <background>backgrounds/background.png</background>
+        </properties>
+        <commands>
+            <command key="help" action="help" />
+            <command key="cancel" target="guide-step" />
+            <command key="close" target="catalog" action="resetGuide" />
+            <command key="back" target="guide-step" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="help" keywords="hilfe" />
+            <voiceCommand command="cancel" keywords="abbrechen" />
+            <voiceCommand command="close" keywords="ja" />
+            <voiceCommand command="back" keywords="nein;zurück" />
+        </voiceCommands>
+        <buttons>
+            <button command="close" label="Ja" />
+            <button command="back" label="Nein" />
+        </buttons>
+    </slide>
+    
+    <slide id="media-image" type="media">
+        <properties>
+            <template>media-image</template>
+        </properties>
+        <commands>
+            <command key="back" target="guide-step" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="back" keywords="schließen;abbrechen" />
+        </voiceCommands>
+        <buttons>
+            <button command="back" label="Schließen" />
+        </buttons>
+    </slide>
+    
+    <slide id="step-warnings" type="titled_select">
+        <properties>
+            <template>warnings</template>
+            <background>backgrounds/background.png</background>
+        </properties>
+        <commands>
+            <command key="help" action="help" />
+            <command key="cancel" target="guide-step" />
+            <command key="previous" action="previous" />
+            <command key="next" action="next" />
+            <command key="back" target="guide-step" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="help" keywords="hilfe" />
+            <voiceCommand command="cancel" keywords="abbrechen" />
+            <voiceCommand command="previous" keywords="zurück;vorherige;vorheriges;vorheriger" />
+            <voiceCommand command="next" keywords="weiter;nächste;nächster;nächstes" />
+            <voiceCommand command="back" keywords="schließen" />
+        </voiceCommands>
+        <buttons>
+            <button command="back" label="Schließen" />
+        </buttons>
+    </slide>
+    
+    <slide id="step-hints" type="titled_select">
+        <properties>
+            <template>hints</template>
+            <background>backgrounds/background.png</background>
+        </properties>
+        <commands>
+            <command key="help" action="help" />
+            <command key="cancel" target="guide-step" />
+            <command key="previous" action="previous" />
+            <command key="next" action="next" />
+            <command key="back" target="guide-step" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="help" keywords="hilfe" />
+            <voiceCommand command="cancel" keywords="abbrechen" />
+            <voiceCommand command="previous" keywords="zurück;vorherige;vorheriges;vorheriger" />
+            <voiceCommand command="next" keywords="weiter;nächste;nächster;nächstes" />
+            <voiceCommand command="back" keywords="schließen" />
+        </voiceCommands>
+        <buttons>
+            <button command="back" label="Schließen" />
+        </buttons>
+    </slide>
+    
+    <slide id="guide-complete" type="default">
+        <properties>
+            <template>default</template>
+            <body><![CDATA[<p style="font-weight:bold;">Sie haben die Anleitung abgeschlossen!</p><p>Möchten Sie eine andere Anleitung öffnen?</p>]]></body>
+            <background>backgrounds/background.png</background>
+        </properties>
+        <commands>
+            <command key="yes" target="catalog" action="resetGuide" />
+            <command key="no" target="goodbye" />
+            <command key="back" target="guide-step" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="yes" keywords="ja" />
+            <voiceCommand command="no" keywords="nein" />
+            <voiceCommand command="back" keywords="zurück" />
+        </voiceCommands>
+        <buttons>
+            <button command="yes" label="Ja" />
+            <button command="no" label="Nein" />
+            <button command="back" label="Zurück" />
+        </buttons>
+    </slide>
+    
+    <slide id="goodbye" type="splash">
+        <properties>
+            <template>splash</template>
+            <body><![CDATA[<h1>GLASSROOM</h1><h2>Support Tool</h2>]]></body>
+            <background>backgrounds/background.png</background>
+            <performAction delay="3" action="exit" />
+        </properties>
+        <commands />
+        <voiceCommands />
+        <buttons />
+    </slide>
+
+    <slide id="no-guides" type="splash">
+        <properties>
+            <template>splash</template>
+            <body><![CDATA[<p>Derzeit stehen keine Anleitungen zur Verfügung.</p>]]></body>
+            <background>backgrounds/background.png</background>
+            <performAction delay="5" action="exit" />
+        </properties>
+        <commands />
+        <voiceCommands />
+        <buttons />
+    </slide>
+
+    <slide id="help" type="default">
+        <properties>
+            <template>default</template>
+            <title></title>
+            <body><![CDATA[<p style="font-size:20px;"><img style="margin-right:10px;width:20px;" src="icons/green-help.png"><span class="command">Hilfe</span>: diese Seite anzeigen</p><p style="font-size:20px;"><img style="margin-right:10px;width:20px;" src="icons/close.png"><span class="command">Abbrechen</span>: Vorgang abbrechen</p><p style="font-size:20px;"><img style="margin-right:10px;width:20px;" src="icons/backward-icon.png"><span class="command">Zurück</span>: vorheriger Eintrag/Schritt</p><p style="font-size:20px;"><img style="margin-right:10px;width:20px;" src="icons/forward-icon.png"><span class="command">Weiter</span>: nächster Eintrag/Schritt</p>]]></body>
+            <background>backgrounds/background.png</background>
+        </properties>
+        <commands>
+            <command key="close" action="previous" />
+        </commands>
+        <voiceCommands>
+            <voiceCommand command="close" keywords="schließen" />
+        </voiceCommands>
+        <buttons>
+            <button command="close" label="Schließen" />
+        </buttons>
+    </slide>
+</workflow>
